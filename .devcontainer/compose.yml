@@ -1,0 +1,51 @@
+---
+version: "3.9"
+services:
+  api:
+    container_name: rusty_resume_api
+    env_file: .env
+    image: mcr.microsoft.com/devcontainers/rust:1.0-1-bookworm
+    networks:
+      - rusty_resume_frontend
+      - rusty_resume_backend
+    restart: always
+    ports:
+      - 8000:8000
+
+  cache:
+    command:
+      - sh
+      - -c
+      - redis-server --appendonly yes --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD variable is not set.}"
+    container_name: rusty_resume_redis
+    env_file: .env.cache
+    image: redis:6.2-alpine
+    networks:
+      - rusty_resume_backend
+    restart: always
+    volumes:
+      - "redisdata:/data"
+
+  db:
+    container_name: rusty_resume_db
+    env_file: .env.db
+    environment:
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+      # POSTGRES_USER: db_user
+      # POSTGRES_PASSWORD: db_pass
+      # POSTGRES_DB: resumeapi
+    image: postgres:16.1-alpine
+    networks:
+      - rusty_resume_backend
+    restart: always
+    volumes:
+      - "pgdata:/var/lib/postgresql/data/pgdata"
+
+networks:
+  rusty_resume_frontend:
+  rusty_resume_backend:
+
+
+volumes:
+  pgdata:
+  redisdata:
