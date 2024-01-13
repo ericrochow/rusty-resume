@@ -4,7 +4,12 @@
             "extensions": [
                 "rust-lang.rust-analyzer",
                 "tomasfe.even-better-toml"
-            ]
+            ],
+            "settings": {
+                "rust-analyzer.linkedProjects": [
+                    "./Cargo.toml"
+                ]
+            }
         }
     },
     "dockerComposeFile": [
