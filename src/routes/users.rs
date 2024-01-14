@@ -8,7 +8,7 @@ pub struct User {
     username: String,
 }
 
-#[get("/users")]
+#[get("/")]
 pub fn get_all_users() -> Json<Vec<User>> {
     let users: Vec<User> = vec![
         User {
@@ -23,7 +23,7 @@ pub fn get_all_users() -> Json<Vec<User>> {
     Json(users)
 }
 
-#[get("/users/me")]
+#[get("/me")]
 pub fn get_my_user() -> Json<User> {
     Json(User {
         id: 1,
