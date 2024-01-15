@@ -1,14 +1,7 @@
-use rocket::serde::{json::Json, Serialize};
+use crate::models::preferences::Preference;
+use rocket::serde::json::Json;
 use std::vec;
 use uuid::Uuid;
-
-#[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Preference {
-    id: Uuid,
-    preference: String,
-    value: String,
-}
 
 #[get("/")]
 pub fn get_preferences() -> Json<Vec<Preference>> {

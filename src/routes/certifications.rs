@@ -1,17 +1,7 @@
-use rocket::serde::{json::Json, Serialize};
+use crate::models::certifications::Certification;
+use rocket::serde::json::Json;
 use std::vec;
 use uuid::Uuid;
-
-#[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Certification {
-    id: Uuid,
-    cert: String,
-    full_name: String,
-    time: String,
-    valid: bool,
-    progress: u8,
-}
 
 #[get("/")]
 pub fn get_certifications() -> Json<Vec<Certification>> {

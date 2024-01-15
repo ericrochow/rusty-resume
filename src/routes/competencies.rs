@@ -1,13 +1,7 @@
-use rocket::serde::{json::Json, Serialize};
+use crate::models::competencies::Competency;
+use rocket::serde::json::Json;
 use std::vec;
 use uuid::Uuid;
-
-#[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Competency {
-    id: Uuid,
-    competency: String,
-}
 
 #[get("/")]
 pub fn get_competencies() -> Json<Vec<Competency>> {

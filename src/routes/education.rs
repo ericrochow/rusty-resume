@@ -1,16 +1,7 @@
-use rocket::serde::{json::Json, Serialize};
+use crate::models::education::Education;
+use rocket::serde::json::Json;
 use std::vec;
 use uuid::Uuid;
-
-#[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
-pub struct Education {
-    id: Uuid,
-    institution: String,
-    degree: String,
-    graduation_date: u16,
-    gpa: f32,
-}
 
 #[get("/")]
 pub fn get_education_history() -> Json<Vec<Education>> {

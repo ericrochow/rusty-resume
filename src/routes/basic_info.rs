@@ -1,14 +1,7 @@
-use rocket::serde::{json::Json, Serialize};
+use crate::models::basic_info::BasicInfo;
+use rocket::serde::json::Json;
 use std::vec;
 use uuid::Uuid;
-
-#[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
-pub struct BasicInfo {
-    id: Uuid,
-    fact: String,
-    value: String,
-}
 
 #[get("/")]
 pub fn get_basic_info() -> Json<Vec<BasicInfo>> {
