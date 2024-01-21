@@ -1,0 +1,13 @@
+pub mod basic_info;
+pub mod certifications;
+pub mod competencies;
+pub mod education;
+pub mod experience;
+pub mod interests;
+// pub mod page;
+pub mod preferences;
+// pub mod response;
+pub mod side_projects;
+pub mod skills;
+pub mod social_links;
+pub mod users;
