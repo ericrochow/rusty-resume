@@ -1,10 +1,15 @@
 use crate::models::preferences::Preference;
-use rocket::serde::json::Json;
+use axum::{extract::Path, routing::get, Json, Router};
 use std::vec;
 use uuid::Uuid;
 
-#[get("/")]
-pub fn get_preferences() -> Json<Vec<Preference>> {
+pub fn create_router() -> Router {
+    Router::new()
+        .route("/", get(get_preferences))
+        .route("/:preference", get(get_preference))
+}
+
+async fn get_preferences() -> Json<Vec<Preference>> {
     let preferences: Vec<Preference> = vec![Preference {
         id: Uuid::now_v7(),
         preference: "color".to_string(),
@@ -13,8 +18,7 @@ pub fn get_preferences() -> Json<Vec<Preference>> {
     Json(preferences)
 }
 
-#[get("/<preference>")]
-pub fn get_preference(preference: String) -> Json<Preference> {
+async fn get_preference(Path(preference): Path<String>) -> Json<Preference> {
     let preference: Preference = Preference {
         id: Uuid::now_v7(),
         preference: preference.to_string(),

@@ -1,10 +1,15 @@
 use crate::models::certifications::Certification;
-use rocket::serde::json::Json;
+use axum::{extract::Path, routing::get, Json, Router};
 use std::vec;
 use uuid::Uuid;
 
-#[get("/")]
-pub fn get_certifications() -> Json<Vec<Certification>> {
+pub fn create_router() -> Router {
+    Router::new()
+        .route("/", get(get_certifications))
+        .route("/:certification", get(get_certification))
+}
+
+async fn get_certifications() -> Json<Vec<Certification>> {
     let certifications: Vec<Certification> = vec![Certification {
         id: Uuid::now_v7(),
         cert: "ccna".to_string(),
@@ -16,8 +21,7 @@ pub fn get_certifications() -> Json<Vec<Certification>> {
     Json(certifications)
 }
 
-#[get("/<certification>")]
-pub fn get_certification(certification: String) -> Json<Certification> {
+async fn get_certification(Path(certification): Path<String>) -> Json<Certification> {
     let certification: Certification = Certification {
         id: Uuid::now_v7(),
         cert: certification.to_string(),

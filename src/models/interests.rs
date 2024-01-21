@@ -1,4 +1,4 @@
-use rocket::serde::Serialize;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 /// A valid interest type.
@@ -41,9 +41,14 @@ use uuid::Uuid;
 // }
 
 #[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
 pub struct Interest {
     pub id: Uuid,
+    pub interest_type_id: Uuid,
+    pub interest: String,
+}
+
+#[derive(Deserialize)]
+pub struct InterestCreate {
     pub interest_type_id: Uuid,
     pub interest: String,
 }
@@ -67,7 +72,6 @@ pub struct Interest {
 /// }
 /// ```
 #[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
 pub struct InterestResponse {
     pub technical: Option<Vec<String>>,
     pub personal: Option<Vec<String>>,

@@ -6,10 +6,29 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+axum = { version = "0.7.4", features = [
+    "http1",
+    "http2",
+    "json",
+    "matched-path",
+    "original-uri",
+    "tokio",
+    "tower-log",
+    "tracing",
+    "form",
+    "query",
+] }
 diesel = { version = "2.1.0", features = ["postgres"] }
-rocket = { "version" = "0.5.0", "features" = ["json", "uuid"] }
-uuid = { "version" = "1.6.1", features = [
+# schemars = { version = "0.8.10", features = ["uuid1"] }
+serde = { version = "1.0.195", features = ["derive"] }
+serde_json = { version = "1.0.111" }
+tokio = { version = "1.35.1", features = ["full"] }
+tower-http = { version = "0.5.1", features = ["trace"] }
+tracing = { version = "0.1.40" }
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
+uuid = { version = "1.6.1", features = [
     "v7",
     "fast-rng",
     "macro-diagnostics",
+    "serde",
 ] }

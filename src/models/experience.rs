@@ -1,8 +1,7 @@
-use rocket::serde::Serialize;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 #[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
 pub struct Experience {
     id: Uuid,
     employeer: String,
@@ -13,24 +12,43 @@ pub struct Experience {
     time: String,
 }
 
+#[derive(Deserialize)]
+pub struct ExperienceCreate {
+    pub employeer: String,
+    pub employer_summary: String,
+    pub location: String,
+    pub job_title: String,
+    pub job_summary: String,
+    pub time: String,
+}
+
 #[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
 pub struct ExperienceHighlight {
     pub id: Uuid,
     pub highlight: String,
     pub experience_id: Option<Uuid>,
 }
 
+#[derive(Deserialize)]
+pub struct ExperienceHighlightCreate {
+    pub highlight: String,
+    pub experience_id: Option<Uuid>,
+}
+
 #[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
 pub struct ExperienceDetail {
     pub id: Uuid,
     pub detail: String,
     pub experience_id: Option<Uuid>,
 }
 
+#[derive(Deserialize)]
+pub struct ExperienceDetailCreate {
+    pub detail: String,
+    pub experience_id: Option<Uuid>,
+}
+
 #[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
 pub struct ExperienceResponse {
     pub id: Uuid,
     pub employeer: String,
